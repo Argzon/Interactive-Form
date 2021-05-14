@@ -33,3 +33,18 @@ design.addEventListener('change', (e) => {
         }
     }
 })
+
+// Register for Activities
+const activities = document.querySelector('#activities');
+const total = document.querySelector('#activities-cost');
+let totalCosts = 0;
+
+activities.addEventListener('change', (e) => {
+    let dataCost = +e.target.getAttribute('data-cost');
+    if (e.target.checked) {
+        totalCosts += dataCost;
+    } else {
+        totalCosts -= dataCost;
+    }
+    total.innerHTML = `Total: $${totalCosts}`;
+})
