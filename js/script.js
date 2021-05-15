@@ -1,8 +1,32 @@
-const name = document.getElementById('name');
-name.focus();
-
+/**
+ * Declaring Variables
+ */
+const form = document.querySelector('form');
+const name = document.querySelector('#name');
+const emailAddress = document.querySelector('#email');
 const jobRole = document.querySelector('#title');
 const otherJobRole = document.querySelector('#other-job-role');
+
+// T-Shirt Info
+const design = document.querySelector('#design');
+const color = document.querySelector('#color');
+
+// Register for Activities
+const activities = document.querySelector('#activities');
+const total = document.querySelector('#activities-cost');
+const activitiesBox = document.querySelectorAll('input[type="checkbox"]');
+
+// Payment info
+const payment = document.querySelector('#payment');
+const creditCard = document.querySelector('#credit-card');
+const paypal = document.querySelector('#paypal');
+const bitcoin = document.querySelector('#bitcoin');
+const cardNumber = document.querySelector('#cc-num');
+const zipCode = document.querySelector('#zip');
+const cvv = document.querySelector('#cvv');
+
+
+name.focus();
 
 otherJobRole.style.display = 'none';
 
@@ -14,9 +38,9 @@ jobRole.addEventListener('change', (e) => {
     }
 });
 
-// T-Shirt Info
-const design = document.querySelector('#design');
-const color = document.querySelector('#color');
+/**
+ * T-Shirt Info Section
+ */
 const colorChildren = color.children;
 
 color.disabled = true;
@@ -34,9 +58,9 @@ design.addEventListener('change', (e) => {
     }
 })
 
-// Register for Activities
-const activities = document.querySelector('#activities');
-const total = document.querySelector('#activities-cost');
+/**
+ * Register for Activities Section
+ */
 let totalCosts = 0;
 
 activities.addEventListener('change', (e) => {
@@ -49,12 +73,9 @@ activities.addEventListener('change', (e) => {
     total.innerHTML = `Total: $${totalCosts}`;
 })
 
-// Payment info
-const payment = document.querySelector('#payment');
-const creditCard = document.querySelector('#credit-card');
-const paypal = document.querySelector('#paypal');
-const bitcoin = document.querySelector('#bitcoin');
-
+/**
+ * Payment info Section
+ */ 
 paypal.setAttribute('style', 'display: none');
 bitcoin.setAttribute('style', 'display: none');
 
@@ -75,3 +96,91 @@ payment.addEventListener('change', (e) => {
         paypal.style.display = 'none';
     }
 })
+
+/**
+ * Form Validation
+ */
+// TODO reconstruct the event listeners
+form.addEventListener('submit', (e) => {
+    // Name Validation
+    if (!nameValidation()) {
+        e.preventDefault();
+        console.log("Name is not valid");
+    } else {
+        e.preventDefault(); // TODO Delete
+        console.log(`Hi ${name.value}`); // TODO Delete  
+    }
+
+    if(!emailValidation()) {
+        e.preventDefault();
+        console.log("Email is not valid");
+    } else {
+        console.log(`Your email is ${emailAddress.value}`);
+    }
+
+    if (regActValidation() == 0) {
+        e.preventDefault();
+        console.log('No activity checked');
+    } else {
+        console.log('Activity has been checked');
+    }
+
+    if(!creditCardValidation()) {
+        e.preventDefault();
+        console.log("CC is not valid");
+    } else {
+        console.log(`Your CC is ${cardNumber.value}`);
+    }
+
+    if(!zipCodeValidation()) {
+        e.preventDefault();
+        console.log("Zip code is not valid");
+    } else {
+        console.log(`Your ZIP Code is ${zipCode.value}`);
+    }
+
+    if(!cvvCodeValidation()) {
+        e.preventDefault();
+        console.log("CVV code is not valid");
+    } else {
+        console.log(`Your CVV Code is ${cvv.value}`);
+    }
+})
+
+// Name Validation function
+function nameValidation() {
+    return /^[A-Za-z]+$/.test(name.value);
+}
+
+// Email Validation function
+function emailValidation() {
+    return /[a-z0-9]+@[a-z]+\..+[.com]/ig.test(emailAddress.value);
+}
+
+// Register for Activities Validation function
+function regActValidation() {
+    let isChecked = 0;
+    for (let i = 0; i < activitiesBox.length; i++) {
+        if(activitiesBox[i].checked) {
+            isChecked += 1;
+        } else {
+            isChecked += 0;
+        }
+    }
+    return isChecked;
+}
+
+// Credit Card validation function
+function creditCardValidation() {
+    return /^[0-9]{13,16}$/.test(cardNumber.value);
+}
+
+// Zip Code Validation function
+function zipCodeValidation() {
+    return /^[0-9]{5}$/.test(zipCode.value);
+}
+
+// CVV Validation function
+function cvvCodeValidation() {
+    return /^[0-9]{3}$/.test(cvv.value);
+}
