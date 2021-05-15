@@ -73,8 +73,47 @@ activities.addEventListener('change', (e) => {
     } else {
         totalCosts -= dataCost;
     }
+
+    let morningTime = document.querySelectorAll("[data-day-and-time='Tuesday 9am-12pm']");
+    let afternoonTime = document.querySelectorAll("[data-day-and-time='Tuesday 1pm-4pm']");
+
+    // when box is checked, disable checkbox for any conflicting event
+
+    if(morningTime[0].checked == true) {
+        morningTime[1].disabled = true;
+        morningTime[1].parentElement.classList.add('disabled');
+    } else if(morningTime[0].checked == false) {
+        morningTime[1].disabled = false;
+        morningTime[1].parentElement.classList.remove('disabled');
+    }
+
+    if(morningTime[1].checked == true) {
+        morningTime[0].disabled = true;
+        morningTime[0].parentElement.classList.add('disabled');
+    } else if(morningTime[1].checked == false) {
+        morningTime[0].disabled = false;
+        morningTime[0].parentElement.classList.remove('disabled');
+    }
+
+    if(afternoonTime[0].checked == true) {
+        afternoonTime[1].disabled = true;
+        afternoonTime[1].parentElement.classList.add('disabled');
+    } else if(afternoonTime[0].checked == false) {
+        afternoonTime[1].disabled = false;
+        afternoonTime[1].parentElement.classList.remove('disabled');
+    }
+
+    if(afternoonTime[1].checked == true) {
+        afternoonTime[0].disabled = true;
+        afternoonTime[0].parentElement.classList.add('disabled');
+    } else if(afternoonTime[1].checked == false) {
+        afternoonTime[0].disabled = false;
+        afternoonTime[0].parentElement.classList.remove('disabled');
+    }
+
     total.innerHTML = `Total: $${totalCosts}`;
 })
+
 
 /**
  * Payment info Section
