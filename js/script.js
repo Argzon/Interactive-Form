@@ -125,26 +125,31 @@ form.addEventListener('submit', (e) => {
         console.log('Activity has been checked');
     }
 
-    if(!creditCardValidation()) {
-        e.preventDefault();
-        console.log("CC is not valid");
-    } else {
-        console.log(`Your CC is ${cardNumber.value}`);
+    // If credit card is selected
+    const ccselected = payment.children[1].selected;
+    if (payment.children[1].selected) {
+        if(!creditCardValidation()) {
+            e.preventDefault();
+            console.log("CC is not valid");
+        } else {
+            console.log(`Your CC is ${cardNumber.value}`);
+        }
+    
+        if(!zipCodeValidation()) {
+            e.preventDefault();
+            console.log("Zip code is not valid");
+        } else {
+            console.log(`Your ZIP Code is ${zipCode.value}`);
+        }
+    
+        if(!cvvCodeValidation()) {
+            e.preventDefault();
+            console.log("CVV code is not valid");
+        } else {
+            console.log(`Your CVV Code is ${cvv.value}`);
+        }
     }
 
-    if(!zipCodeValidation()) {
-        e.preventDefault();
-        console.log("Zip code is not valid");
-    } else {
-        console.log(`Your ZIP Code is ${zipCode.value}`);
-    }
-
-    if(!cvvCodeValidation()) {
-        e.preventDefault();
-        console.log("CVV code is not valid");
-    } else {
-        console.log(`Your CVV Code is ${cvv.value}`);
-    }
 })
 
 // Name Validation function
