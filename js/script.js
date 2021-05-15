@@ -14,7 +14,9 @@ const color = document.querySelector('#color');
 // Register for Activities
 const activities = document.querySelector('#activities');
 const total = document.querySelector('#activities-cost');
-const activitiesBox = document.querySelectorAll('input[type="checkbox"]');
+const inputCheckbox = document.querySelectorAll('input[type="checkbox"]');
+const activitiesBox = document.querySelector('#activities-box');
+
 
 // Payment info
 const payment = document.querySelector('#payment');
@@ -33,6 +35,7 @@ otherJobRole.style.display = 'none';
 jobRole.addEventListener('change', (e) => {
     if (e.target.value == 'other') {
         otherJobRole.style.display = 'block';
+        otherJobRole.focus();
     } else {
         otherJobRole.style.display = 'none';
     }
@@ -102,14 +105,50 @@ payment.addEventListener('change', (e) => {
  */
 form.addEventListener('submit', (e) => {
     // Name Validation
-    if (!nameValidation() || !emailValidation() || !regActValidation() ) {
+    if (nameValidation()) {
+        isValid(name);
+    } else {
         e.preventDefault();
-    } 
+        notValid(name);
+    }
+
+    // Email Validation
+    if (emailValidation()) {
+        isValid(emailAddress);
+    } else {
+        e.preventDefault();
+        notValid(emailAddress);
+    }
+
+    // Register Activities Validation
+    if (regActValidation()) {
+        isValid(activitiesBox);
+    } else {
+        e.preventDefault();
+        notValid(activitiesBox);
+    }
 
     // If credit card is selected
     if (payment.children[1].selected) {
-        if(!creditCardValidation() || !zipCodeValidation() || !cvvCodeValidation()) {
+        if(creditCardValidation()) {
+            isValid(cardNumber);
+        } else {
             e.preventDefault();
+            notValid(cardNumber);
+        }
+
+        if (zipCodeValidation()) {
+            isValid(zipCode);
+        } else {
+            e.preventDefault();
+            notValid(zipCode);
+        }
+
+        if (cvvCodeValidation()) {
+            isValid(cvv);
+        } else {
+            e.preventDefault();
+            notValid(cvv);
         }
     }
 })
@@ -127,8 +166,8 @@ function emailValidation() {
 // Register for Activities Validation function
 function regActValidation() {
     let isChecked = 0;
-    for (let i = 0; i < activitiesBox.length; i++) {
-        if(activitiesBox[i].checked) {
+    for (let i = 0; i < inputCheckbox.length; i++) {
+        if(inputCheckbox[i].checked) {
             isChecked += 1;
         } else {
             isChecked += 0;
@@ -150,4 +189,32 @@ function zipCodeValidation() {
 // CVV Validation function
 function cvvCodeValidation() {
     return /^[0-9]{3}$/.test(cvv.value);
+}
+
+/**
+ * Accessibility
+ */
+ 
+for (let i = 0; i < inputCheckbox.length; i++) {
+    inputCheckbox[i].addEventListener('focus', (e) => {
+        e.target.parentElement.classList.add('focus');
+    });
+    
+    inputCheckbox[i].addEventListener('blur', (e) => {
+        e.target.parentElement.classList.remove('focus');
+    });
+}
+
+
+
+function isValid(prop) {
+    prop.parentElement.classList.add('valid');
+    prop.parentElement.classList.remove('not-valid')
+    prop.parentElement.lastElementChild.style.display = 'none';
+}
+
+function notValid(prop) {
+    prop.parentElement.classList.add('not-valid');
+    prop.parentElement.classList.remove('valid')
+    prop.parentElement.lastElementChild.style.display = 'block';
 }
