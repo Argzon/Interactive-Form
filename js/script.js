@@ -77,8 +77,8 @@ activities.addEventListener('change', (e) => {
     let morningTime = document.querySelectorAll("[data-day-and-time='Tuesday 9am-12pm']");
     let afternoonTime = document.querySelectorAll("[data-day-and-time='Tuesday 1pm-4pm']");
 
-    // when box is checked, disable checkbox for any conflicting event
 
+    // disable any conflicting activity that happens at the same time
     if(morningTime[0].checked == true) {
         morningTime[1].disabled = true;
         morningTime[1].parentElement.classList.add('disabled');
@@ -189,6 +189,22 @@ form.addEventListener('submit', (e) => {
             e.preventDefault();
             notValid(cvv);
         }
+    }
+})
+
+form.addEventListener('keyup', (e) => {
+    // Name Validation
+    if (nameValidation()) {
+        isValid(name);
+    } else if (name.value === '') {
+        e.preventDefault();
+        notValid(name);
+        name.parentElement.lastElementChild.innerHTML = 'This field cannot be empty.';
+    } else {
+        e.preventDefault();
+        name.parentElement.lastElementChild.innerHTML = 'Only letters accepted.';
+        name.parentElement.classList.add('not-valid');
+        name.parentElement.lastElementChild.style.display = 'block';
     }
 })
 
