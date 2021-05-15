@@ -100,56 +100,18 @@ payment.addEventListener('change', (e) => {
 /**
  * Form Validation
  */
-// TODO reconstruct the event listeners
 form.addEventListener('submit', (e) => {
     // Name Validation
-    if (!nameValidation()) {
+    if (!nameValidation() || !emailValidation() || !regActValidation() ) {
         e.preventDefault();
-        console.log("Name is not valid");
-    } else {
-        e.preventDefault(); // TODO Delete
-        console.log(`Hi ${name.value}`); // TODO Delete  
-    }
-
-    if(!emailValidation()) {
-        e.preventDefault();
-        console.log("Email is not valid");
-    } else {
-        console.log(`Your email is ${emailAddress.value}`);
-    }
-
-    if (regActValidation() == 0) {
-        e.preventDefault();
-        console.log('No activity checked');
-    } else {
-        console.log('Activity has been checked');
-    }
+    } 
 
     // If credit card is selected
-    const ccselected = payment.children[1].selected;
     if (payment.children[1].selected) {
-        if(!creditCardValidation()) {
+        if(!creditCardValidation() || !zipCodeValidation() || !cvvCodeValidation()) {
             e.preventDefault();
-            console.log("CC is not valid");
-        } else {
-            console.log(`Your CC is ${cardNumber.value}`);
-        }
-    
-        if(!zipCodeValidation()) {
-            e.preventDefault();
-            console.log("Zip code is not valid");
-        } else {
-            console.log(`Your ZIP Code is ${zipCode.value}`);
-        }
-    
-        if(!cvvCodeValidation()) {
-            e.preventDefault();
-            console.log("CVV code is not valid");
-        } else {
-            console.log(`Your CVV Code is ${cvv.value}`);
         }
     }
-
 })
 
 // Name Validation function
