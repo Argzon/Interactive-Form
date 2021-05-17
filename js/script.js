@@ -55,6 +55,7 @@ design.addEventListener('change', (e) => {
         const attr = colorChildren[i].getAttribute('data-theme');
         if (val !== attr) {
             colorChildren[i].setAttribute('hidden', 'true');
+            color.children[0].selected = true;
         } else {
             colorChildren[i].removeAttribute('hidden');
         }
