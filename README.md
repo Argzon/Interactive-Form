@@ -9,7 +9,7 @@ An interactive form to enhance an interactive registration form for a fictional 
 ### Credit Card Number
 
 Im checking if the card number field is empty and then display the error sign and message telling that this field cannot be empty.
-Also in the next cenario I check if the user enters different characters than letter and let them know that this form accepts letters only.
+Also in the next cenario I check if the user enters different characters than numbers and let them know that this form accepts numbers only.
 When the user starts writing the numbers, a warn message appears telling them that the credit card numbers are between 13 and 16.
 When the user enters a valid credit card number a green check ✅ appears informing the user that the credit card number is correct.
 
