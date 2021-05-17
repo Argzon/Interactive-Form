@@ -194,18 +194,55 @@ form.addEventListener('submit', (e) => {
 })
 
 form.addEventListener('keyup', (e) => {
-    // Name Validation
-    if (nameValidation()) {
-        isValid(name);
-    } else if (name.value === '') {
+    // Card Number Validation
+    if (creditCardValidation()) {
+        isValid(cardNumber);
+    }  else if (cardNumber.value.length == 0) {
         e.preventDefault();
-        notValid(name);
-        name.parentElement.lastElementChild.innerHTML = 'This field cannot be empty.';
+        cardNumber.parentElement.lastElementChild.innerHTML = "This field cannot be blank.";
+    } else if (cardNumber.value.length < 13 || cardNumber.value.length > 16) {
+        e.preventDefault();
+        notValid(cardNumber);
+        cardNumber.parentElement.lastElementChild.innerHTML = "Please enter the card numbers between 13 and 16";
     } else {
         e.preventDefault();
-        name.parentElement.lastElementChild.innerHTML = 'Only letters accepted.';
-        name.parentElement.classList.add('not-valid');
-        name.parentElement.lastElementChild.style.display = 'block';
+        cardNumber.parentElement.lastElementChild.innerHTML = 'Only numbers accepted.';
+        cardNumber.parentElement.classList.add('not-valid');
+        cardNumber.parentElement.lastElementChild.style.display = 'block';
+    }
+
+    // Zip Code Validation
+    if (zipCodeValidation()) {
+        isValid(zipCode);
+    }  else if (zipCode.value.length == 0) {
+        e.preventDefault();
+        zipCode.parentElement.lastElementChild.innerHTML = "This field cannot be blank.";
+    } else if (zipCode.value.length < 5 || zipCode.value.length > 5) {
+        e.preventDefault();
+        notValid(zipCode);
+        zipCode.parentElement.lastElementChild.innerHTML = "Please enter 5 Zip Code numbers.";
+    } else {
+        e.preventDefault();
+        zipCode.parentElement.lastElementChild.innerHTML = 'Only numbers accepted.';
+        zipCode.parentElement.classList.add('not-valid');
+        zipCode.parentElement.lastElementChild.style.display = 'block';
+    }
+
+    // CVV Validation
+    if (cvvCodeValidation()) {
+        isValid(cvv);
+    }  else if (cvv.value.length == 0) {
+        e.preventDefault();
+        cvv.parentElement.lastElementChild.innerHTML = "This field cannot be blank.";
+    } else if (cvv.value.length < 3 || cvv.value.length > 3) {
+        e.preventDefault();
+        notValid(cvv);
+        cvv.parentElement.lastElementChild.innerHTML = "Please enter 3 CVV numbers.";
+    } else {
+        e.preventDefault();
+        cvv.parentElement.lastElementChild.innerHTML = 'Only numbers accepted.';
+        cvv.parentElement.classList.add('not-valid');
+        cvv.parentElement.lastElementChild.style.display = 'block';
     }
 })
 
